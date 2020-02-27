@@ -38,7 +38,6 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_reset"
-        android:tint="@android:color/white"
-        android:onClick="resetSports"/>
+        android:tint="@android:color/white"/>
 
 </RelativeLayout>

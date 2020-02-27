@@ -18,7 +18,11 @@ package com.example.android.tp045027;
 
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,17 +39,13 @@ import java.util.ArrayList;
 class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
 
     // Member variables.
-    private ArrayList<Sport> mSportsData;
+//    private ArrayList<Sport> mSportsData;
     private Context mContext;
+    private ArrayList<Location> locations;
 
-    /**
-     * Constructor that passes in the sports data and the context.
-     *
-     * @param sportsData ArrayList containing the sports data.
-     * @param context Context of the application.
-     */
-    SportsAdapter(Context context, ArrayList<Sport> sportsData) {
-        this.mSportsData = sportsData;
+    SportsAdapter(Context context) {
+//        this.mSportsData = sportsData;
+        this.locations = Repository.getInstance().getListData();
         this.mContext = context;
     }
 
@@ -75,10 +75,21 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
     public void onBindViewHolder(SportsAdapter.ViewHolder holder,
                                  int position) {
         // Get current sport.
-        Sport currentSport = mSportsData.get(position);
+//        Sport currentSport = loca.get(position);
 
         // Populate the textviews with data.
-        holder.bindTo(currentSport);
+        holder.bindTo(locations.get(position));
+        holder.cardView.setOnClickListener(view -> {
+            Location currentLocation = locations.get(position);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("location", currentLocation);
+
+            Intent detailIntent = new Intent(mContext, DetailActivity.class);
+            detailIntent.putExtras(bundle);
+
+            mContext.startActivity(detailIntent);
+        });
     }
 
     /**
@@ -88,20 +99,20 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
      */
     @Override
     public int getItemCount() {
-        return mSportsData.size();
+        return locations.size();
     }
 
 
     /**
      * ViewHolder class that represents each row of data in the RecyclerView.
      */
-    class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         // Member Variables for the TextViews
         private TextView mTitleText;
         private TextView mInfoText;
         private ImageView mSportsImage;
+        private CardView cardView;
 
         /**
          * Constructor for the ViewHolder, used in onCreateViewHolder().
@@ -115,19 +126,33 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
             mTitleText = itemView.findViewById(R.id.title);
             mInfoText = itemView.findViewById(R.id.subTitle);
             mSportsImage = itemView.findViewById(R.id.sportsImage);
+            cardView = itemView.findViewById(R.id.cardView);
 
             // Set the OnClickListener to the entire view.
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
         }
 
-        void bindTo(Sport currentSport){
+//        void bindTo(Sport currentSport){
+//            // Populate the textviews with data.
+//            mTitleText.setText(currentSport.getTitle());
+//            mInfoText.setText(currentSport.getInfo());
+//
+//            // Load the images into the ImageView using the Glide library.
+//            Glide.with(mContext).load(
+//                    currentSport.getImageResource()).into(mSportsImage);
+//        }
+
+        void bindTo(Location currentLocation){
             // Populate the textviews with data.
-            mTitleText.setText(currentSport.getTitle());
-            mInfoText.setText(currentSport.getInfo());
+            mTitleText.setText(currentLocation.getName());
+
+//            mTitleText.setText("LOLOL");
+
+//            mInfoText.setText("lat: " + currentLocation.getCoordinate().getLattitude() + " long: " + currentLocation.getCoordinate().getLongitude());
 
             // Load the images into the ImageView using the Glide library.
-            Glide.with(mContext).load(
-                    currentSport.getImageResource()).into(mSportsImage);
+//            Glide.with(mContext).load(
+//                    currentSport.getImageResource()).into(mSportsImage);
         }
 
         /**
@@ -135,14 +160,20 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
          *
          * @param view View that is clicked.
          */
-        @Override
-        public void onClick(View view) {
-            Sport currentSport = mSportsData.get(getAdapterPosition());
-            Intent detailIntent = new Intent(mContext, DetailActivity.class);
-            detailIntent.putExtra("title", currentSport.getTitle());
-            detailIntent.putExtra("image_resource",
-                    currentSport.getImageResource());
-            mContext.startActivity(detailIntent);
-        }
+//        @Override
+//        public void onClick(View view) {
+//            Sport currentSport = mSportsData.get(getAdapterPosition());
+//            Intent detailIntent = new Intent(mContext, DetailActivity.class);
+//            detailIntent.putExtra("title", currentSport.getTitle());
+//            detailIntent.putExtra("image_resource",
+//                    currentSport.getImageResource());
+//            mContext.startActivity(detailIntent);
+//        }
+    }
+
+    public void setData(ArrayList<Location> list)
+    {
+        locations = list;
+        notifyDataSetChanged();
     }
 }

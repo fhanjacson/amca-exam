@@ -26,16 +26,34 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /***
  * Main Activity for the Material Me app, a mock sports news application.
  */
 public class MainActivity extends AppCompatActivity {
 
+
+//    TODO: Adaptive Design
+//    TODO: 3rd Party Library
+//    TODO: Location
+//    TODO: Map
+//    TODO: Fragments
+
+//    Recyclerview isi nya point gps
+//    Google Map di dalam fragment, fragment nya bisa di buka tutup 1 button
+//    retrofit
+
+
     // Member variables.
     private RecyclerView mRecyclerView;
     private ArrayList<Sport> mSportsData;
     private SportsAdapter mAdapter;
+    private Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +70,13 @@ public class MainActivity extends AppCompatActivity {
         mSportsData = new ArrayList<>();
 
         // Initialize the adapter and set it to the RecyclerView.
-        mAdapter = new SportsAdapter(this, mSportsData);
+        mAdapter = new SportsAdapter(this);
+        repository = Repository.getInstance();
+        repository.getLocation(mAdapter);
         mRecyclerView.setAdapter(mAdapter);
 
         // Get the data.
-        initializeData();
+//        initializeData();
 
         // Helper class for creating swipe to dismiss and drag and drop
         // functionality.
@@ -65,15 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | 
                     ItemTouchHelper.DOWN | ItemTouchHelper.UP,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            /**
-             * Defines the drag and drop functionality.
-             *
-             * @param recyclerView The RecyclerView that contains the list items
-             * @param viewHolder The SportsViewHolder that is being moved
-             * @param target The SportsViewHolder that you are switching the
-             *               original one with.
-             * @return true if the item was moved, false otherwise
-             */
+
             @Override
             public boolean onMove(RecyclerView recyclerView,
                                   RecyclerView.ViewHolder viewHolder,
@@ -142,7 +154,12 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view The button view that was clicked.
      */
-    public void resetSports(View view) {
-        initializeData();
+//    public void resetSports(View view) {
+//        initializeData();
+//    }
+
+    public void getLocation() {
+        repository = Repository.getInstance();
+
     }
 }
