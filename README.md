@@ -1,22 +1,19 @@
-Material Me! - Solution Code)
-=============================
+This project is used for AMCA Practical Exam on 28022020
 
-The Material Me! application is a mock Sports information app intended to 
-teach principles of Material Design. It includes Cards with mixed media, 
-including images loaded using the Glide library. It also uses the Floating
-Action Button and Material Design color palettes.
+There are three brances: master, study, exam
 
-Pre-requisites
---------------
+master brance is the original Material Me Solution Code from https://github.com/google-developer-training/android-fundamentals-apps-v2/tree/master/MaterialMe
 
-For this app you should be familiar with:
-* Creating and running apps in Android Studio.
-* Creating and editing elements using the Layout Editor, XML, and 
-  programmatically.
-* Using a RecyclerView to display a list.
-* Using Glide to load images.
-* Using the Material Design palette.
+study branch is used for studying for the exam the night before :D
 
+exam branch is used for the actual exam
+
+features:
+-recyclerview (linear layout manager and grid layout manager)
+-glide
+-google maps
+-fragment
+-fused location
 
 Getting Started
 ---------------
