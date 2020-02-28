@@ -23,26 +23,28 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /***
  * Detail Activity that is launched when a list item is clicked.
  * It shows more info on the sport.
  */
 public class DetailActivity extends AppCompatActivity {
 
-    /**
-     * Initializes the activity, filling in the data from the Intent.
-     *
-     * @param savedInstanceState Contains information about the saved state
-     *                           of the activity.
-     */
+    @BindView(R.id.titleDetail) TextView sportsTitle;
+    @BindView(R.id.sportsImageDetail) ImageView sportsImage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
 
         // Initialize the views.
-        TextView sportsTitle = findViewById(R.id.titleDetail);
-        ImageView sportsImage = findViewById(R.id.sportsImageDetail);
+//        TextView sportsTitle = findViewById(R.id.titleDetail);
+//        ImageView sportsImage = findViewById(R.id.sportsImageDetail);
 
         // Set the text from the Intent extra.
         sportsTitle.setText(getIntent().getStringExtra("title"));

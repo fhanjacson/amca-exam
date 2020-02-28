@@ -16,6 +16,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.tp045027">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.android.tp045027.DetailActivity"></activity>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAnKm00QOZeiYVEVRLaNkflI8kbM_aChBE"/>
     </application>
 
 </manifest>

@@ -29,10 +29,14 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /***
  * The adapter class for the RecyclerView, contains the sports data.
  */
 class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
+
 
     // Member variables.
     private ArrayList<Sport> mSportsData;
@@ -99,9 +103,9 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
             implements View.OnClickListener{
 
         // Member Variables for the TextViews
-        private TextView mTitleText;
-        private TextView mInfoText;
-        private ImageView mSportsImage;
+        @BindView(R.id.title) TextView mTitleText;
+        @BindView(R.id.subTitle) TextView mInfoText;
+        @BindView(R.id.sportsImage) ImageView mSportsImage;
 
         /**
          * Constructor for the ViewHolder, used in onCreateViewHolder().
@@ -110,11 +114,13 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
          */
         ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this,itemView);
+
 
             // Initialize the views.
-            mTitleText = itemView.findViewById(R.id.title);
-            mInfoText = itemView.findViewById(R.id.subTitle);
-            mSportsImage = itemView.findViewById(R.id.sportsImage);
+//            mTitleText = itemView.findViewById(R.id.title);
+//            mInfoText = itemView.findViewById(R.id.subTitle);
+//            mSportsImage = itemView.findViewById(R.id.sportsImage);
 
             // Set the OnClickListener to the entire view.
             itemView.setOnClickListener(this);

@@ -16,16 +16,28 @@
 
 package com.example.android.tp045027;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /***
  * Main Activity for the Material Me app, a mock sports news application.
@@ -33,20 +45,71 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     // Member variables.
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     private ArrayList<Sport> mSportsData;
     private SportsAdapter mAdapter;
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.mapFragment_container) FrameLayout mapLayout;
+    private Boolean mapStatus = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         // Initialize the RecyclerView.
-        mRecyclerView = findViewById(R.id.recyclerView);
+//        mRecyclerView = findViewById(R.id.recyclerView);
+//        fab = findViewById(R.id.fab);
+//        mapLayout = findViewById(R.id.mapFragment_container);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                MapFragment mapFragment = (MapFragment) fragmentManager.findFragmentByTag("map");
+
+                if (mapStatus) {
+                    Log.d("PANTEQ", "Removing fragment");
+                    fab.setImageResource(R.drawable.ic_open);
+
+                    if (mapFragment != null) {
+
+                        fragmentTransaction.remove(mapFragment).commit();
+                    }
+
+//                    FragmentManager fragmentManager = getSupportFragmentManager();
+//                    MapFragment mapFragment1 = fragmentManager.findFragmentById(R.id.mapFragment_container);
+//
+//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    mapStatus = !mapStatus;
+                } else {
+                    fab.setImageResource(R.drawable.ic_close);
+
+                    mapFragment = new MapFragment();
+//                    FragmentManager fragmentManager = getSupportFragmentManager();
+//
+//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.mapFragment_container, mapFragment, "map").commit();
+
+
+                    mapStatus = !mapStatus;
+                }
+
+
+
+            }
+        });
 
         // Set the Layout Manager.
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        int gridColumnCount = getResources().getInteger(R.integer.grid_column_count);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, gridColumnCount));
 
         // Initialize the ArrayList that will contain the data.
         mSportsData = new ArrayList<>();
@@ -142,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view The button view that was clicked.
      */
-    public void resetSports(View view) {
-        initializeData();
-    }
+//    public void resetSports(View view) {
+//        initializeData();
+//    }
 }
