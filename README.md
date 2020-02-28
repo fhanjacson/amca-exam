@@ -9,16 +9,17 @@ study branch is used for studying for the exam the night before :D
 exam branch is used for the actual exam
 
 features:
-recyclerview (linear layout manager and grid layout manager)
-glide
-google maps
-fragment
+recyclerview (linear layout manager and grid layout manager),
+glide,
+google maps,
+fragment,
 fused location
 
 Getting Started
 ---------------
 
 1. Download and open the app in Android Studio.
+2. You will need Google Map API key (https://developers.google.com/maps/documentation/android-sdk/get-api-key)
 
 License
 -------
