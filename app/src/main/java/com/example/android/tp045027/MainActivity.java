@@ -19,6 +19,7 @@ package com.example.android.tp045027;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -45,13 +46,15 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     // Member variables.
-    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
     private ArrayList<Sport> mSportsData;
     private SportsAdapter mAdapter;
-    @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.mapFragment_container) FrameLayout mapLayout;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.mapFragment_container)
+    FrameLayout mapLayout;
     private Boolean mapStatus = false;
-
 
 
     @Override
@@ -103,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-
             }
         });
 
@@ -123,11 +125,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Helper class for creating swipe to dismiss and drag and drop
         // functionality.
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
-                .SimpleCallback(
-                    ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | 
-                    ItemTouchHelper.DOWN | ItemTouchHelper.UP,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+        int swipeDirs;
+        if (gridColumnCount > 1) {
+            swipeDirs = 0;
+        } else {
+            swipeDirs = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+        }
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.LEFT |
+                ItemTouchHelper.RIGHT |
+                ItemTouchHelper.DOWN | ItemTouchHelper.UP,
+                swipeDirs) {
             /**
              * Defines the drag and drop functionality.
              *

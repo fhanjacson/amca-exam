@@ -132,9 +132,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         gMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
                         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
                         Log.d("PANTEQ", "Latitude: " + location.getLatitude() + " Longitude: " + location.getLongitude());
-
+//                        Toast.makeText(getActivity(), "Location = " + location.getLatitude() + ":" + location.getLongitude(), Toast.LENGTH_SHORT).show();
 //                        GET LOCATION DATA ONE TIME ONLY, THEN REMOVE THE LOCATION UPDATE
-//                        client.removeLocationUpdates(this); // REMOVE THIS LINE IF YOU WANT LOCATION UPDATE PERIODICALLY
+                        client.removeLocationUpdates(this); // REMOVE THIS LINE IF YOU WANT LOCATION UPDATE PERIODICALLY
 
                     }
                 }, null);
